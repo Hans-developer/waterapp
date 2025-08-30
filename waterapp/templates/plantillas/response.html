@@ -1,0 +1,78 @@
+{% extends 'plantillas/base.html' %}
+
+{% block title %}tiempo{% endblock%}
+
+{% block content%}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="weather-container p-4">
+                <h1 class="text-center mb-4"><i class="fas fa-cloud-sun me-2"></i>WeatherApp</h1>
+
+                <!-- opciones de buscador -->
+                <form method="POST">
+                    {% csrf_token %}
+                    <select class="form-select" name="zona">
+                        <option value="santiago">santiago</option>
+                        <option value="concepcion">Concepción</option>
+                        <option value="temuco">Temuco</option>
+                        <option value="chillan">Chillán</option>
+                        <option value="talca">Talca</option>
+                        <option value="los angeles">Los Ángeles</option>
+                        <option value="viña del mar">Viña del Mar</option>
+                        <option value="valdivia">Valdivia</option>
+                        <option value="puerto montt">Puerto Montt</option>
+                        <option value="rancagua">Rancagua</option>
+                        <option value="osorno">Osorno</option>
+                        <option value="valparaiso">Valparaíso</option>
+                        <option value="la serena">La Serena</option>
+                        <option value="pucon">Pucón</option>
+                        <option value="curico">Curicó</option>
+                        <option value="molina">Molina</option>
+                        <option value="linares">Linares</option>
+                        <option value="villarica">Villarica</option>
+                        <option value="puerto varas">Puerto Varas</option>
+                        <option value="castro">Castro</option>
+                        <option value="san fernando">San Fernando</option>
+                        <!-- Agrega más opciones según las zonas disponibles -->
+                    </select>
+                    <button class="btn btn-success mt-4" type="submit">Buscar</button>
+                </form>
+
+                <!-- Clima actual -->
+                <div class="current-weather mb-5">
+                    <h2 class="city-name">{{titulo}}</h2>
+                    <div class="weather-icon">
+                        <i class="fas fa-sun"></i>
+                    </div>
+                </div>
+
+                <! Pronóstico extendido ->
+                    <h3 class="mb-3"><i class="fas fa-calendar-alt me-2"></i>Próximos días</h3>
+                    {% for img, day, d, fecha in combined %}
+                    <div class="row mb-4">
+                        <div class="col-md-4 mb-3">
+                            <div class="forecast-card">
+                                <h5>{{fecha}}</h5>
+                                <div class="forecast-icon mb-2">
+                                    <img src="{{img}}" alt="">
+                                </div>
+                                <div>{{day}}</div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+
+
+                    <! Footer ->
+                        <div class="footer">
+                            <p>WeatherApp &copy; 2025 - Diseñado par Hans Saldias</p>
+                        </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock%}
